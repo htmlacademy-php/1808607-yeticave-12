@@ -10,7 +10,7 @@ $lots = [
     [
         'name' => '2014 Rossignol District Snowboard',
         'category' => 'Доски и лыжи',
-        'price' => 10999,
+        'price' => 10999.99,
         'image_url' => 'img/lot-1.jpg',
     ],
     [
@@ -43,8 +43,15 @@ $lots = [
         'price' =>	5400,
         'image_url' => 'img/lot-6.jpg',
     ],
-]
-function 
+];
+function format_amount($amount){
+    $str_amount = "";
+    $currency = " ₽";
+    $amount = ceil($amount);
+    $str_amount = number_format($amount, 0, '.', ' ');
+    $str_amount .= $currency; 
+    return $str_amount;
+}; 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -108,7 +115,7 @@ function
         <div class="lots__header">
             <h2>Открытые лоты</h2>
         </div>
-        <ul class="lots__list">
+        <ul class="lots__list">    
             <!--заполните этот список из массива с товарами-->
             <?php foreach ($lots as $lot): ?>
             <li class="lots__item lot">
@@ -121,7 +128,7 @@ function
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?= $lot['price']; ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?= format_amount($lot['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
