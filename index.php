@@ -1,4 +1,5 @@
 <?php
+require_once('helpers.php');
 $is_auth = rand(0, 1);
 
 $user_name = 'Anastasiia'; // укажите здесь ваше имя
@@ -52,7 +53,6 @@ function format_amount($amount){
     $str_amount .= $currency; 
     return $str_amount;
 }; 
-require('helpers.php');
 $main_content = include_template('main.php', ['categories' => $categories, 'lots' => $lots]);
 $layout_content = include_template('layout.php', ['main_content' => $main_content, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $categories]);
 print($layout_content);
