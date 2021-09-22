@@ -29,9 +29,8 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?= format_amount($lot['price']); ?></span>
                         </div>
-                        <!--<div class="lot__timer timer timer--finishing">-->
-                        <div class="lot__timer timer <?php echo (time_left($lot['date_end'])['finish'] == 1) ? ' timer--finishing' : '' ?>">
-                        <?= time_left($lot['date_end'])['time']; ?>
+                        <div class="lot__timer timer <?php echo (time_left($lot['date_end'])['hour'] <= 0) ? ' timer--finishing' : '' ?>">
+                        <?= time_left($lot['date_end'])['hour'].":".time_left($lot['date_end'])['min']; ?>
                         </div>
                     </div>
                 </div>

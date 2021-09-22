@@ -142,5 +142,24 @@ function include_template($name, array $data = []) {
 
     return $result;
 }
+//Функция по форматированию суммы. Принимает стоимсоть, округляет и выводит с разделением тысячных
+function format_amount($amount){
+    $str_amount = "";
+    $currency = " ₽";
+    $amount = ceil($amount);
+    $str_amount = number_format($amount, 0, '.', ' ');
+    $str_amount .= $currency; 
+    return $str_amount;
+}; 
+//Функция по выводу таймера до окончания продажи товара. Получает дату окончания из товара. рассчитывает разницу на данный момент и формирует массив [hour, min]
+function time_left($end_date){
+    $now = strtotime("now");
+    $future = strtotime($end_date);
+    $diff_sek = $future - $now;
+    $diff_hour = floor($diff_sek/3600);
+    $diff_min = floor(($diff_sek - $diff_hour*3600)/60);
+    return array('hour' => $diff_hour,
+                 'min' => $diff_min);
+}
 
 

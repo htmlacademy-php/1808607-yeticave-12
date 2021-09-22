@@ -51,26 +51,7 @@ $lots = [
         'date_end' => "2021-09-23",
     ],
 ];
-function format_amount($amount){
-    $str_amount = "";
-    $currency = " ₽";
-    $amount = ceil($amount);
-    $str_amount = number_format($amount, 0, '.', ' ');
-    $str_amount .= $currency; 
-    return $str_amount;
-}; 
-function time_left($end_date){
-    $now = strtotime("now");
-    $future = strtotime($end_date);
-    $finishing = 0;
-    $diff_sek = $future - $now;
-    $diff_hour = floor($diff_sek/3600);
-    $diff_min = floor(($diff_sek - $diff_hour*3600)/60);
-    $diff = $diff_hour . ":" . $diff_min;
-    if ($diff <= 0) {$finishing = 1;}
-    return(array('time' => $diff,
-                 'finish' => $finishing));
-}
+
 $main_content = include_template('main.php', ['categories' => $categories, 'lots' => $lots]);
 $layout_content = include_template('layout.php', ['main_content' => $main_content, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $categories]);
 print($layout_content);
