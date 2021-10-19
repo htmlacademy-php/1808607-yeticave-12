@@ -22,7 +22,7 @@ CREATE TABLE lot (
   name VARCHAR(128) NOT NULL,
   description VARCHAR(255) NOT NULL,
   image VARCHAR(255),
-  start_price DECIMAL(5,2) NOT NULL,
+  start_price DECIMAL(12,2) NOT NULL,
   date_end DATE NOT NULL,
   rate_step INT NOT NULL,
   id_author INT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE lot (
 CREATE TABLE rate (
   id INT PRIMARY KEY AUTO_INCREMENT,
   date_add DATETIME NOT NULL,
-  price DECIMAL(5,2) NOT NULL,
+  price DECIMAL(12,2) NOT NULL,
   id_user INT NOT NULL,
   id_lot INT NOT NULL,
   FOREIGN KEY (id_user)  REFERENCES user (id),
