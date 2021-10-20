@@ -4,15 +4,15 @@ DEFAULT COLLATE UTF8_GENERAL_CI;
 
 CREATE TABLE category (
   symbolic_code CHAR(64) NOT NULL PRIMARY KEY,
-  name CHAR(64) NOT NULL 
+  name VARCHAR(64) NOT NULL 
 );
 
 CREATE TABLE user (
   id INT PRIMARY KEY AUTO_INCREMENT,
   date_registration DATETIME NOT NULL,
   name VARCHAR(128) NOT NULL,
-  email VARCHAR(128) NOT NULL,
-  password VARCHAR(15) NOT NULL,
+  email VARCHAR(128) NOT NULL UNIQUE,
+  password VARCHAR(50) NOT NULL,
   contact VARCHAR(128) NOT NULL
 );
 
@@ -20,9 +20,9 @@ CREATE TABLE lot (
   id INT PRIMARY KEY AUTO_INCREMENT,
   date_create DATETIME NOT NULL,
   name VARCHAR(128) NOT NULL,
-  description VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
   image VARCHAR(255),
-  start_price DECIMAL(12,2) NOT NULL,
+  start_price INT NOT NULL,
   date_end DATE NOT NULL,
   rate_step INT NOT NULL,
   id_author INT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE lot (
 CREATE TABLE rate (
   id INT PRIMARY KEY AUTO_INCREMENT,
   date_add DATETIME NOT NULL,
-  price DECIMAL(12,2) NOT NULL,
+  price INT NOT NULL,
   id_user INT NOT NULL,
   id_lot INT NOT NULL,
   FOREIGN KEY (id_user)  REFERENCES user (id),
