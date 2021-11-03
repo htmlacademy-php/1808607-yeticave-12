@@ -46,7 +46,7 @@ WHERE lot.id = 1
 /*  
 обновить название лота по его идентификатору  
 */ 
-
+UPDATE lot SET lot.name="2014 Rossignol District Snowboard" WHERE id=1
 
 /*  
 получить список ставок для лота по его идентификатору с сортировкой по дате  
