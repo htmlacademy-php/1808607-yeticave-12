@@ -29,11 +29,11 @@ SELECT * FROM category
 /*  
 получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории  
 */ 
-SELECT lot.name, start_price, image, category.name
+SELECT lot.name, start_price, image, category.name, date_end
 FROM lot 
 LEFT JOIN category ON id_category = symbolic_code
+WHERE date_end > CURRENT_DATE()
 ORDER BY date_create DESC
-LIMIT 1
 
 /*  
 показать лот по его ID. Получите также название категории, к которой принадлежит лот  
