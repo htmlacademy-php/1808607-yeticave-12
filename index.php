@@ -3,11 +3,55 @@ require_once('helpers.php');
 $is_auth = rand(0, 1);
 
 $user_name = 'Anastasiia'; // укажите здесь ваше имя
+$con = mysqli_connect("localhost", "root", "", "yeticave");
+$sql_cat = "SELECT * FROM category";
+$result_cat = mysqli_query($con, $sql_cat);
+$category = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
+
+/*if ($con == false) {
+   print("Ошибка подключения: " . mysqli_connect_error());
+}
+else {
+   print("Соединение установлено");
+	// выполнение запросов
+}*/
+/*
 $categories = [
-    "Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты",
-    "Разное"
+    [
+        'symbolic_code' => 'boards',
+        'name' => 'Доски и лыжи',
+    ],
+    [
+        'symbolic_code' => 'attachment',
+        'name' => 'Крепления',
+    ],
+    [
+        'symbolic_code' => 'boots',
+        'name' => 'Ботинки',
+    ],
+    [
+        'symbolic_code' => 'clothing',
+        'name' => 'Одежда',
+    ],
+    [
+        'symbolic_code' => 'tools',
+        'name' => 'Инструменты',
+    ],
+    [
+        'symbolic_code' => 'other',
+        'name' => 'Разное',
+    ]
 ];
-$lots = [
+*/
+$sql_lot = "SELECT lot.name AS name_lot, start_price, image, category.name, date_end
+FROM lot 
+LEFT JOIN category ON id_category = symbolic_code
+WHERE date_end > CURRENT_DATE()
+ORDER BY date_create DESC";
+$result_lot = mysqli_query($con, $sql_lot);
+$lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
+/*
+$lotss = [
     [
         'name' => '2014 Rossignol District Snowboard',
         'category' => 'Доски и лыжи',
@@ -51,8 +95,9 @@ $lots = [
         'date_end' => "2021-09-23",
     ],
 ];
+*/
 
-$main_content = include_template('main.php', ['categories' => $categories, 'lots' => $lots]);
-$layout_content = include_template('layout.php', ['main_content' => $main_content, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $categories]);
+$main_content = include_template('main.php', ['categories' => $category, 'lots' => $lots]);
+$layout_content = include_template('layout.php', ['main_content' => $main_content, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
 print($layout_content);
 ?>
