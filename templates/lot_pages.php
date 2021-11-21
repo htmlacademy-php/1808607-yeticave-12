@@ -21,10 +21,10 @@
             <div class="lot-item__cost-state">
               <div class="lot-item__rate">
                 <span class="lot-item__amount">Текущая цена</span>
-                <span class="lot-item__cost">10 999</span>
+                <span class="lot-item__cost"><?= format_amount($start_price); ?></span>
               </div>
               <div class="lot-item__min-cost">
-                Мин. ставка <span>12 000 р</span>
+                Мин. ставка <span><?= format_amount($rate_step); ?></span>
               </div>
             </div>
             <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
@@ -38,6 +38,7 @@
           </div>
           <div class="history">
             <h3>История ставок (<span>10</span>)</h3>
+            <!--
             <table class="history__list">
               <tr class="history__item">
                 <td class="history__name">Иван</td>
@@ -89,7 +90,7 @@
                 <td class="history__price">10 999 р</td>
                 <td class="history__time">19.03.17 в 10:20</td>
               </tr>
-            </table>
+            </table>-->
           </div>
         </div>
       </div>
