@@ -43,7 +43,7 @@ $categories = [
     ]
 ];
 */
-$sql_lot = "SELECT lot.name AS name_lot, start_price, image, category.name, date_end
+$sql_lot = "SELECT lot.name AS name_lot, start_price, image, category.name, date_end, lot.id AS lot_id
 FROM lot 
 LEFT JOIN category ON id_category = symbolic_code
 WHERE date_end > CURRENT_DATE()
