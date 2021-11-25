@@ -7,6 +7,7 @@ $con = mysqli_connect("localhost", "root", "", "yeticave");
 $sql_cat = "SELECT * FROM category";
 $result_cat = mysqli_query($con, $sql_cat);
 $category = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
+$style = null;
 
 /*if ($con == false) {
    print("Ошибка подключения: " . mysqli_connect_error());
