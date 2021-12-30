@@ -2,6 +2,7 @@
 require_once('helpers.php');
 $is_auth = rand(0, 1);
 $user_name = 'Anastasiia';
+$container = '';
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 /*
 if ($con == false) {
@@ -42,11 +43,11 @@ $lot = mysqli_fetch_assoc($result_lot);
 */
 if (!$lot) {
 	$error_content = include_template('404.php', ['nav' => $nav_content]);
-    $layout_content = include_template('layout.php', ['main_content' => $error_content, 'title' => "404", 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
+    $layout_content = include_template('layout.php', ['main_content' => $error_content, 'container' => $container, 'title' => "404", 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
 }
 else {
     $lot_content = include_template('lot_pages.php', ['nav' => $nav_content, 'name_lot' => $lot['name_lot'], 'category_name' => $lot['name'], 'description' => $lot['description'], 'image' => $lot['image'], 'date_end' => $lot['date_end'], 'start_price' => $lot['start_price'], 'rate_step' => $lot['rate_step']]);
-    $layout_content = include_template('layout.php', ['main_content' => $lot_content, 'title' => $lot['name_lot'], 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
+    $layout_content = include_template('layout.php', ['main_content' => $lot_content, 'container' => $container, 'title' => $lot['name_lot'], 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
 }
 print($layout_content);
 ?>
