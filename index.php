@@ -8,6 +8,8 @@ $sql_cat = "SELECT * FROM category";
 $result_cat = mysqli_query($con, $sql_cat);
 $category = mysqli_fetch_all($result_cat, MYSQLI_ASSOC);
 
+$container = 'container';
+
 /*if ($con == false) {
    print("Ошибка подключения: " . mysqli_connect_error());
 }
@@ -98,6 +100,6 @@ $lotss = [
 */
 
 $main_content = include_template('main.php', ['categories' => $category, 'lots' => $lots]);
-$layout_content = include_template('layout.php', ['main_content' => $main_content, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
+$layout_content = include_template('layout.php', ['main_content' => $main_content, 'container' => $container, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
 print($layout_content);
 ?>

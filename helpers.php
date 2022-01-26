@@ -162,4 +162,48 @@ function time_left($end_date){
                  'min' => $diff_min);
 }
 
+//Функция для сохранения значений из формы
+function getPostVal($name) {
+    return $_POST[$name] ?? "";
+}
 
+//Функция для проверки заполненности
+function validateFilled($name) {
+    if (empty($_POST[$name])) {
+        return "Это поле должно быть заполнено";
+    }
+}
+
+//Функция для проверки заполненности категории
+function validateCategory($name) {
+    if ($_POST[$name] === "Выберите категорию") {
+        return "Выберите категорию";
+    }
+}
+
+//Функция для проверки вводимых сумм
+function validateRate($name) {
+    if ((!filter_input(INPUT_POST, $name, FILTER_VALIDATE_INT)) OR ((int)$_POST[$name] < 0)) {
+        return "Введите корректную сумму";
+    }
+}
+
+//Функция для проверки даты
+function validateDate($name) {
+    if (!is_date_valid($_POST[$name])) {
+        return "Введите корректную дату";
+    }
+    else {
+        $today = date('Y-m-d');
+        if ($today >= $_POST[$name]) {
+            return "Введите корректную дату";
+        }
+    }
+}
+
+//Функция валидации файла
+function validateFile($name) {
+    if (!in_array(mime_content_type($_FILES[$name]['tmp_name']) ,['image/png', 'image/jpeg'])) {
+        return "Загрузите картинку в верном формате";
+    }
+}
