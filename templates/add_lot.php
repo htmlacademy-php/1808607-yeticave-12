@@ -32,11 +32,11 @@
     <div class="form__item form__item--file <?= (isset($errors['lot-img'])) ? "form__item--invalid" : ""?>">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file <?= (isset($errors['lot-img'])) ? "form__item--invalid" : ""?>">
-            <input class="visually-hidden" type="file" name="lot-img" id="lot-img" value="" >
+            <input class="visually-hidden" type="file" name="lot-img" id="lot-img" accept=".jpg, .jpeg, .png" value="" >
             <label for="lot-img">
             Добавить
             </label>
-            <span class="form__error">1<?= $errors['lot-img']?></span>
+            <span class="form__error"><?= $errors['lot-img']?></span>
         </div>
     </div>
     <div class="form__container-three">

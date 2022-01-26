@@ -203,7 +203,7 @@ function validateDate($name) {
 
 //Функция валидации файла
 function validateFile($name) {
-    if ($_FILES[$name] ['error'] == 4){
-        return "Загрузите изображение";
+    if (!in_array(mime_content_type($_FILES[$name]['tmp_name']) ,['image/png', 'image/jpeg'])) {
+        return "Загрузите картинку в верном формате";
     }
 }

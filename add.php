@@ -36,31 +36,39 @@ $rules = [
  */
 $nav_content = include_template('navigation.php', ['categories' => $category]);
 
-//$sql_lot = "SELECT lot.name AS name_lot, start_price, image, category.name, date_end, lot.id AS lot_id
-//FROM lot 
-//LEFT JOIN category ON id_category = symbolic_code
-//WHERE date_end > CURRENT_DATE()
-//ORDER BY date_create DESC";
-//$result_lot = mysqli_query($con, $sql_lot);
-//$lots = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
-if ($_SERVER["REQUEST_METHOD"] === "POST")
-foreach ($_POST as $key => $value){
-    if (isset($rules[$key])) {
-      //  $_POST[$key] = htmlspecialchars($value, ENT_QUOTES,"UTF-8");
-        $rule = $rules[$key];
-        $errors[$key] = $rule();
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    foreach ($_POST as $key => $value){
+     if (isset($rules[$key])) {
+          $rule = $rules[$key];
+          $errors[$key] = $rule();
+      }
+    };
+    if (is_uploaded_file($_FILES['lot-img']['tmp_name'])) {
+        $rule = $rules['lot-img'];
+        $errors['lot-img'] = $rule();
     }
-}
+    else {
+        $errors['lot-img'] = "Загрузите изображение";
+    }
+};
 $errors = array_filter($errors);
 $form = include_template('add_lot.php', ['nav' => $nav_content, 'categories' => $category, 'errors' => $errors]);
 $layout_content = include_template('layout.php', ['main_content' => $form, 'container' => $container, 'title' => 'Главная', 'user_name' => $user_name, 'is_auth' => $is_auth, 'categories' => $category]);
-var_dump(mime_content_type($_FILES['lot-img']));
-var_dump($_FILES['lot-img']);
-//var_dump($_POST['lot-date']);
-//if ($_SERVER["REQUEST_METHOD"] === "POST")
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $file_name = $_FILES['lot-img']['name'];
+    $file_path = __DIR__ . '/uploads/';
+    $file_url = '/uploads/' . $file_name;
+    move_uploaded_file($_FILES['lot-img']['tmp_name'], $file_path . $file_name);
+    $safe_name = mysqli_real_escape_string($con, $_POST['lot-name']);
+    $safe_description = mysqli_real_escape_string($con, $_POST['message']);
+    $sql_newLot = "INSERT INTO lot (date_create, name, description, image, start_price, date_end, rate_step, id_author, id_winner, id_category) VALUES ( NOW(), '$safe_name', '$safe_description', '$file_url', '{$_POST['lot-rate']}', '{$_POST['lot-date']}', '{$_POST['lot-step']}', '3', null, '{$_POST['category']}')";
+    mysqli_query($con, $sql_newLot);
+    header("Location: http://yeticave/lot.php?id=".mysqli_insert_id($con));
+} else {
+    print($layout_content);
+};
 
 
-
-
-($_SERVER["REQUEST_METHOD"] === "POST") ? print($layout_content) : print($layout_content);
 ?>
